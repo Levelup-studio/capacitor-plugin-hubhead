@@ -9,7 +9,7 @@ export class HHPluginWeb extends WebPlugin implements HHPluginPlugin {
     });
   }
   notify(): never {
-    throw this.unimplemented('Not implemented on web.');
+    throw 'Not implemented on web.';
   }
 }
 
