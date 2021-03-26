@@ -19,11 +19,13 @@ public class HHPlugin extends Plugin {
         String body = call.getString("body");
         String title = call.getString("title");
         String tag = call.getString("tag");
+        String displayStyle = call.getString("displayStyle");
+        String priority = displayStyle == "default" ? NotificationCompat.PRIORITY_DEFAULT : NotificationCompat.PRIORITY_HIGH;
         Notification notification = new NotificationCompat.Builder(getContext(), "3")
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(getContext().getApplicationInfo().icon)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(priority)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         NotificationManagerCompat manager = NotificationManagerCompat.from(getContext());
