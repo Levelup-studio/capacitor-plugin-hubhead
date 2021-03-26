@@ -8,10 +8,8 @@ export class HHPluginWeb extends WebPlugin implements HHPluginPlugin {
       platforms: ['web'],
     });
   }
-
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  notify(): never {
+    throw this.unimplemented('Not implemented on web.');
   }
 }
 
