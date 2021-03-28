@@ -50,4 +50,5 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation "com.android.support:support-compat:28.0.0"
+    implementation compile rootProject
 }
