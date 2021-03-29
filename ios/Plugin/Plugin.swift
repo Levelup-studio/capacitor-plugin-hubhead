@@ -8,10 +8,12 @@ import Capacitor
 @objc(HHPlugin)
 public class HHPlugin: CAPPlugin {
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.success([
-            "value": value
-        ])
+    @objc func notify(_ call: CAPPluginCall) {
+        let content = UNMutableNotificationContent()
+        content.title = "Pupa"
+        content.body = "And Lupa"
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString,
+                    content: content, trigger: nil)
     }
 }
