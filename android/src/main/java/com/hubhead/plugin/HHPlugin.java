@@ -4,6 +4,7 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.hubhead.plugin.capacitorpluginhubhead.R;
 
 import android.app.Notification;
 import androidx.core.app.NotificationCompat;
@@ -15,6 +16,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.os.Build;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 @NativePlugin
 public class HHPlugin extends Plugin {
@@ -65,7 +71,7 @@ public class HHPlugin extends Plugin {
         Notification notification = new NotificationCompat.Builder(getContext(), "3")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(getContext().getApplicationInfo().icon)
+                .setSmallIcon(R.drawable.ic_stat_notification_badge)
                 .setPriority(priority)
                 .setContentIntent(resultPendingIntent)
                 .build();
@@ -76,5 +82,14 @@ public class HHPlugin extends Plugin {
             manager.createNotificationChannel(channel);
         }
         manager.notify(tag, 0, notification);
+    }
+    @PluginMethod
+    public void vibrate(PluginCall call) {
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= 26) {
+            v.vibrate(VibrationEffect.createOneShot(45, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(45);
+        }
     }
 }

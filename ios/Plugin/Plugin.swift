@@ -16,9 +16,15 @@ public class HHPlugin: CAPPlugin {
         content.body = body
         content.userInfo = data
         content.threadIdentifier = tag
-        var uuidString = UUID().uuidString
-        var request = UNNotificationRequest(identifier: uuidString,
+        content.categoryIdentifier = tag
+        var request = UNNotificationRequest(identifier: tag,
                     content: content, trigger: nil)
         var notificationCenter = UNUserNotificationCenter.current().add(request)
+    }
+    @objc func enableNavigationGestures(_ call: CAPPluginCall) {
+        self.bridge.getWebView()?.allowsBackForwardNavigationGestures = true;
+    }
+    @objc func disableNavigationGestures(_ call: CAPPluginCall) {
+        self.bridge.getWebView()?.allowsBackForwardNavigationGestures = false;
     }
 }

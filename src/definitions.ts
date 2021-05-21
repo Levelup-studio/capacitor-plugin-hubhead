@@ -6,4 +6,7 @@ declare module '@capacitor/core' {
 
 export interface HHPluginPlugin {
   notify(): never;
+  enableNavigationGestures(): never;
+  disableNavigationGestures(): never;
+  vibrate(): never;
 }

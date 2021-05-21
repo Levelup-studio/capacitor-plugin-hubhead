@@ -11,6 +11,15 @@ export class HHPluginWeb extends WebPlugin implements HHPluginPlugin {
   notify(): never {
     throw 'Not implemented on web.';
   }
+  enableNavigationGestures(): never {
+    throw 'Not implemented on web.';
+  }
+  disableNavigationGestures(): never {
+    throw 'Not implemented on web.';
+  }
+  vibrate(): never {
+    throw 'Not implemented on web.';
+  }
 }
 
 const HHPlugin = new HHPluginWeb();

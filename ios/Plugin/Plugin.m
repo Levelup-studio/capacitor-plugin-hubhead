@@ -5,4 +5,6 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(HHPlugin, "HHPlugin",
            CAP_PLUGIN_METHOD(notify, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(enableNavigationGestures, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(disableNavigationGestures, CAPPluginReturnPromise);
 )
