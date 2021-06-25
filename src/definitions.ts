@@ -8,5 +8,7 @@ export interface HHPluginPlugin {
   notify(): never;
   enableNavigationGestures(): never;
   disableNavigationGestures(): never;
+  setUserDefaults(): never;
+  listenUserDefaults(): never;
   vibrate(): never;
 }

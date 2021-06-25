@@ -17,6 +17,12 @@ export class HHPluginWeb extends WebPlugin implements HHPluginPlugin {
   disableNavigationGestures(): never {
     throw 'Not implemented on web.';
   }
+  setUserDefaults(): never {
+    throw 'Not implemented on web.';
+  }
+  listenUserDefaults(): never {
+    throw 'Not implemented on web.';
+  }
   vibrate(): never {
     throw 'Not implemented on web.';
   }

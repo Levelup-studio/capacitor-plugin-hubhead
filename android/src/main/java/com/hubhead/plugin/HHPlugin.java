@@ -19,11 +19,14 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.Build;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
 @NativePlugin
 public class HHPlugin extends Plugin {
+    public SharedPreferences preferences;
     @Override
     protected void handleOnNewIntent(Intent data) {
         super.handleOnNewIntent(data);
@@ -84,6 +87,29 @@ public class HHPlugin extends Plugin {
         manager.notify(tag, 0, notification);
     }
     @PluginMethod
+    public void setUserDefaults(PluginCall call) {
+        String key = call.getString("key");
+        String value = call.getString("value");
+        preferences = getContext().getSharedPreferences("hubhead", Context.MODE_PRIVATE);
+        Editor edit = preferences.edit();
+        edit.putString(key, value);
+        edit.apply();
+    }
+
+    @PluginMethod
+    public void listenUserDefaults(PluginCall call) {
+        preferences = getContext().getSharedPreferences("hubhead", Context.MODE_PRIVATE);
+        preferences.registerOnSharedPreferenceChangeListener(listener);
+    }
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            notifyListeners("sync", new JSObject());
+        }
+    };
+
+    @PluginMethod
     public void vibrate(PluginCall call) {
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= 26) {
@@ -92,4 +118,5 @@ public class HHPlugin extends Plugin {
             v.vibrate(45);
         }
     }
+
 }
