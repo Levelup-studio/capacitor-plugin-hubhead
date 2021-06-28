@@ -11,4 +11,5 @@ export interface HHPluginPlugin {
   setUserDefaults(): never;
   listenUserDefaults(): never;
   vibrate(): never;
+  readAllNotifications(): never;
 }

@@ -26,6 +26,9 @@ export class HHPluginWeb extends WebPlugin implements HHPluginPlugin {
   vibrate(): never {
     throw 'Not implemented on web.';
   }
+  readAllNotifications(): never {
+    throw 'Not implemented on web.';
+  }
 }
 
 const HHPlugin = new HHPluginWeb();

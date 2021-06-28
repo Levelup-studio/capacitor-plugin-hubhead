@@ -110,6 +110,12 @@ public class HHPlugin extends Plugin {
     };
 
     @PluginMethod
+    public void readAllNotifications(PluginCall call) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(getContext());
+        manager.cancelAll();
+    }
+
+    @PluginMethod
     public void vibrate(PluginCall call) {
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= 26) {

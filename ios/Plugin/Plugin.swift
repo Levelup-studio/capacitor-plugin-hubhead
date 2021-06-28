@@ -52,4 +52,7 @@ public class HHPlugin: CAPPlugin {
     @objc func disableNavigationGestures(_ call: CAPPluginCall) {
         self.bridge.getWebView()?.allowsBackForwardNavigationGestures = false;
     }
+    @objc func readAllNotifications(_ call: CAPPluginCall) {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications();
+    }
 }
