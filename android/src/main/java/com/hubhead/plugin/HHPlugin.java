@@ -105,7 +105,9 @@ public class HHPlugin extends Plugin {
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            notifyListeners("sync", new JSObject());
+            if (key == "sync") {
+                notifyListeners("sync", new JSObject());
+            }
         }
     };
 
