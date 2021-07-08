@@ -10,4 +10,5 @@ CAP_PLUGIN(HHPlugin, "HHPlugin",
            CAP_PLUGIN_METHOD(listenUserDefaults, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(disableNavigationGestures, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(readAllNotifications, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setBadge, CAPPluginReturnPromise);
 )

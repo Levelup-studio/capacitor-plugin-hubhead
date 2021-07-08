@@ -55,4 +55,12 @@ public class HHPlugin: CAPPlugin {
     @objc func readAllNotifications(_ call: CAPPluginCall) {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications();
     }
+    @objc func setBadge(_ call: CAPPluginCall) {
+        let count = call.getInt("count", 0);
+        let content = UNMutableNotificationContent();
+        content.badge = count as? NSNumber;
+        var request = UNNotificationRequest(identifier: "badge",
+                                            content: content, trigger: nil);
+        var notificationCenter = UNUserNotificationCenter.current().add(request);
+    }
 }
