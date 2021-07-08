@@ -14,6 +14,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.ArraySet;
 import android.util.Log;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -44,11 +45,10 @@ public class HHPlugin extends Plugin {
                     dataObject.put(key, valueStr);
                 }
             }
-
-            notificationJson.put("data", dataObject);
             JSObject actionJson = new JSObject();
             actionJson.put("actionId", "tap");
-            actionJson.put("notification", notificationJson);
+            actionJson.put("card_id", dataObject.getString("card_id"));
+            actionJson.put("sphere_id", dataObject.getString("sphere_id"));
             notifyListeners("pushNotificationActionPerformed", actionJson, true);
         }
     }
