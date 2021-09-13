@@ -28,6 +28,9 @@ import static androidx.core.content.ContextCompat.getSystemService;
 @NativePlugin
 public class HHPlugin extends Plugin {
     public SharedPreferences preferences;
+    
+    // метод для обработки тапов по пушам
+    // парсит данные из пуша и отправляет ивент в js
     @Override
     protected void handleOnNewIntent(Intent data) {
         super.handleOnNewIntent(data);
@@ -52,6 +55,8 @@ public class HHPlugin extends Plugin {
             notifyListeners("pushNotificationActionPerformed", actionJson, true);
         }
     }
+    // метод для отправки локальных пушей из js
+    // сейчас не используется
     @PluginMethod
     public void notify(PluginCall call) {
         String body = call.getString("body");
@@ -86,6 +91,9 @@ public class HHPlugin extends Plugin {
         }
         manager.notify(tag, 0, notification);
     }
+    // метод называется как в iOS хотя на Android - Shared Preferences, а не User Defaults
+    // записывает строку в Shared Preferences для того чтобы синхронизировать сервис пушей и js
+    // например серису пушей нужно знать если открыта карточка и чат отскроллен (значит пуш прочтитается сразу и его можно не показывать)
     @PluginMethod
     public void setUserDefaults(PluginCall call) {
         String key = call.getString("key");
@@ -96,12 +104,13 @@ public class HHPlugin extends Plugin {
         edit.apply();
     }
 
+    // добавляем листенера для изменений в Shared Preferences
     @PluginMethod
     public void listenUserDefaults(PluginCall call) {
         preferences = getContext().getSharedPreferences("hubhead", Context.MODE_PRIVATE);
         preferences.registerOnSharedPreferenceChangeListener(listener);
     }
-
+    // отправляем ивент в js
     private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -110,13 +119,15 @@ public class HHPlugin extends Plugin {
             }
         }
     };
-
+    
+    // прочтение всех нотификаций, например при логауте
     @PluginMethod
     public void readAllNotifications(PluginCall call) {
         NotificationManagerCompat manager = NotificationManagerCompat.from(getContext());
         manager.cancelAll();
     }
 
+    // вибрация, реализация которая в Capacitor была не достаточно гибкой
     @PluginMethod
     public void vibrate(PluginCall call) {
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
